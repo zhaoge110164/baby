@@ -1,0 +1,323 @@
+body {
+    background-color: rgb(20, 25, 30);
+}
+
+nav {
+    background-color: #000000;
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    top: 0px;
+    left: 0px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 60px;
+    float: right;
+    margin-right: 20px;
+
+}
+
+nav ul li a {
+    display: inline-block;
+    text-decoration: none;
+    line-height: inherit;
+    color: rgb(120, 125, 130);
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkid-transition: 0.5s;
+}
+nav ul li span{
+    color: #ffffff;
+    font-size: 10px;
+    display:inline-block;
+    padding-top: 10px;
+    margin-right: 3px;
+}
+nav ul a:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+#logo {
+    float: left;
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+#banner-wrap {
+    min-height: 500px;
+    background-image: url("../img/banner.png");
+    background-color: rgb(77, 90, 98);
+    background-repeat: no-repeat;
+    margin: 60px auto 0px;
+    padding: 100px 0 0 500px;
+
+}
+
+#banner {
+    color: white;
+    max-width: 300px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top: 0px;
+    right: 50px;
+}
+
+#banner p {
+    line-height: 40px;
+    margin-bottom: 50px;
+}
+#banner span{
+    display:block;
+    margin-top: 10px;
+}
+button {
+    border-style: none;
+    background-color: lightslategrey;
+    color: white;
+    padding: 10px;
+    transition: 0.8s;
+    -moz-transition: 0.8s;
+    -webkid-transition: 0.8s;
+    margin-bottom: 40px
+;
+}
+
+button:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+    box-shadow: 1px -1px 50px #ccc;
+
+}
+
+section {
+    display: block;
+    width: 100%;
+    min-height: 550px;
+
+}
+
+#section-one-left {
+    float: left;
+    position: relative;
+    width: 60%;
+    margin-left: 80px;
+}
+
+/*图片定位和动画效果*/
+#bb1 {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    -webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    z-index: 1;
+}
+
+#bb2 {
+    position: absolute;
+    top: 60px;
+    left: 220px;
+    -webkit-transform: rotate(20deg);
+    -moz-transform: rotate(20deg);
+    -ms-transform: rotate(20deg);
+    -o-transform: rotate(20deg);
+    transform: rotate(20deg);
+    z-index: 1;
+}
+
+#bb3 {
+    position: absolute;
+    top: 150px;
+    left: 210px;
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+    z-index: 1;
+}
+
+#bb4 {
+    position: absolute;
+    top: 210px;
+    left: 320px;
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+    z-index: 1;
+}
+
+#bb5 {
+    position: absolute;
+    top: 310px;
+    left: 400px;
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+    z-index: 1;
+}
+
+#bb6 {
+    position: absolute;
+    top: 170px;
+    left: 420px;
+    -webkit-transform: rotate(20deg);
+    -moz-transform: rotate(20deg);
+    -ms-transform: rotate(20deg);
+    -o-transform: rotate(20deg);
+    transform: rotate(20deg);
+    z-index: 1;
+}
+
+#bb7 {
+    position: absolute;
+    top: 320px;
+    left: 230px;
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+    transform: rotate(30deg);
+    z-index: 1;
+}
+
+#bb8 {
+    position: absolute;
+    top: 200px;
+    left: 20px;
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg);
+
+    transform: rotate(5deg);
+    z-index: 1;
+}
+
+#bb9 {
+    position: absolute;
+    top: 310px;
+    left: 40px;
+    -webkit-transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+    -ms-transform: rotate(-15deg);
+    -o-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+    z-index: 1;
+}
+
+#section-one-left img {
+    padding: 10px 10px 15px;
+    background-color: white;
+    border: 1px solid #ddd;
+    height: 150px;
+    transition: 0.8s;
+    -moz-transition: 0.8s;
+    -webkid-transition: 0.8s;
+
+}
+
+#section-one-left img:hover {
+    z-index: 2;
+    -webkit-transform: rotate(0deg) scale(2);
+    -moz-transform: rotate(0deg) scale(2);
+    transform: rotate(0deg) scale(2);
+    box-shadow: 1px -1px 50px #ccc;
+}
+
+#section-one-right {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    position: relative;
+    top: 200px;
+    left: 200px;
+
+}
+
+#section-two-left {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    color: rgb(120, 125, 130);
+    float: left;
+    position: relative;
+    top: 140px;
+    left: 220px;
+}
+
+#section-two-right {
+    float: right;
+    position: relative;
+    top: 50px;
+    right: 100px;
+
+}
+
+#section-two-right img {
+    height: 400px;
+    width: auto;
+    box-shadow: 50px 50px 1000px #ccc;
+    border: solid 1px #ccc;
+    padding: 10px 10px 20px 10px;
+    background-color: white;
+}
+
+footer {
+    min-height: 200px;
+    text-align: center;
+    color: rgb(120, 125, 130);
+    background-color: #000000;
+}
+
+footer ul {
+    margin: 0 auto;
+    padding: 30px;
+    height: 60px;
+
+}
+
+footer ul li {
+    display: inline-block;
+    padding: 10px;
+    line-height: 60px;
+}
+
+footer ul li:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    transform: scale(1.1);
+    color: white;
+}
+
+footer div {
+    border-top: 1px solid;
+    margin: 0 auto;
+    width: 800px;
+    height: 60px;
+    line-height: 60px;
+}
