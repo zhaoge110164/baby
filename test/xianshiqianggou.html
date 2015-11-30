@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>团购——限时抢</title>
+    <link rel="stylesheet" href="style.css"  />
+</head>
+
+<body>
+<div class="content3">
+    <div class="time">还剩 <span id="LeftTime"></span></div>
+</div>
+<script>
+    function FreshTime()
+    {
+        var endtime=new Date("2016/5/15,12:20:12");//设置结束时间
+        var nowtime = new Date();//获取当前时间
+        var lefttime=  (endtime.getTime() - nowtime.getTime())/1000  ; //剩余时间秒
+        d=  parseInt(lefttime/3600/24)  ;//剩余天数取整
+        h=  parseInt(lefttime/3600%24)  ;//剩余小时取余，取整
+        m=  parseInt(lefttime/60%60) ;//剩余分钟 取余，取整
+        s=  parseInt(lefttime%60)  ;//剩余，秒数 取余， 取整
+
+        document.getElementById("LeftTime").innerHTML=d+"天"+h+"小时"+m+"分"+s+"秒"; //输出
+        if(lefttime<=0){ //判断是否结束
+            document.getElementById("LeftTime").innerHTML="团购已结束";
+            clearInterval(sh);
+        }
+    }
+    FreshTime() //运行函数
+    var sh= setInterval(FreshTime,500) //设置计时器;
+</script>
+</body>
+</html>

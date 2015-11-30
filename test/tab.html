@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+            list-style:none ;
+            font-size :12px ;
+        }
+        .maindiv{
+            width: 298px;
+            height: 98px;
+            margin: 10px;
+            border: 1px solid #eee;
+            overflow: hidden;
+        }
+        .menudiv{
+            height: 27px;
+            position: relative;
+        }
+       .menudiv ul{
+            position: absolute; /*防止边框重叠*/
+            width: 301px;
+            left: -1px;
+        }
+        .menudiv li{
+            float: left;
+            width: 58px;
+            height: 26px;
+            line-height: 26px;
+            text-align: center;
+            background: #F7F7F7;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+            padding: 0 1px; /*左右填充 */
+        }
+        /*
+        link:连接平常的状态
+        visited:连接被访问过之后
+        hover:鼠标放到连接上的时候
+        active:连接被按下的时候 */
+        .maindiv li a:link ,.maindiv li a:visited{
+            text-decoration-line: none;
+            color: #000000;
+        }
+        .menudiv li a:hover{
+            color: red;
+        }
+        .menudiv ul .select{
+            background:#fff;
+            border-bottom: none;
+            border-left:  1px solid #eee;
+            border-right:  1px solid #eee;
+            padding: 0;   /*高亮去掉左右填充 */
+            z-index: 100;
+            font-weight: bolder;
+        }
+        .content ul{
+
+        }
+        .content ul{
+            display: none;
+        }
+        .content ul li{
+            float: left;
+            padding: 5px 5px;
+            width: 130px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+
+        #first ul{
+            display: block;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>标签切换</title>
+</head>
+<body>
+<div class="maindiv">
+  <div class="menudiv" id="menudiv">
+      <ul>
+          <li>
+              <a href="#">首页</a>
+          </li>
+          <li>
+              <a href="#">热点</a>
+          </li>
+          <li>
+              <a href="#">汽车</a>
+          </li>
+          <li>
+              <a href="#">科技</a>
+          </li>
+          <li >
+              <a href="#" >军事</a>
+          </li>
+      </ul>
+  </div>
+    <div class="content" id="contentdiv">
+        <ul id="first">
+            <li><a href="#">[首页]这个是首页的消息</a> </li>
+            <li><a href="#">[首页]这个是首页的消息</a> </li>
+            <li><a href="#">[首页]这个是首页的消息</a> </li>
+            <li><a href="#">[首页]这个是首页的消息</a> </li>
+
+
+        </ul>
+        <ul>
+            <li><a href="#">[热点]这个是热点消息</a> </li>
+            <li><a href="#">[热点]这个是热点消息</a> </li>
+            <li><a href="#">[热点]这个是热点消息</a> </li>
+            <li><a href="#">[热点]这个是热点消息</a> </li>
+
+        </ul>
+        <ul>
+            <li><a href="#">[汽车]这个是汽车的消息</a> </li>
+            <li><a href="#">[汽车]这个是汽车的消息</a> </li>
+            <li><a href="#">[汽车]这个是汽车的消息</a> </li>
+            <li><a href="#">[汽车]这个是汽车的消息</a> </li>
+
+        </ul>
+        <ul>
+            <li><a href="#">[科技]这个是科技的消息</a> </li>
+            <li><a href="#">[科技]这个是科技的消息</a> </li>
+            <li><a href="#">[科技]这个是科技的消息</a> </li>
+            <li><a href="#">[科技]这个是科技的消息</a> </li>
+
+        </ul>
+        <ul>
+            <li><a href="#">[军事]这个是军事的消息</a> </li>
+            <li><a href="#">[军事]这个是军事的消息</a> </li>
+            <li><a href="#">[军事]这个是军事的消息</a> </li>
+            <li><a href="#">[军事]这个是军事的消息</a> </li>
+
+        </ul>
+    </div>
+</div>
+<script>
+    var _menuli=document.getElementById("menudiv").getElementsByTagName("li"); //获取菜单所有选项卡
+    var _contentul=document.getElementById("contentdiv").getElementsByTagName("ul");//获取所有内容
+    var that;
+    var timer;
+    var index = -1;
+    /*切换效果的方法*/
+    function start(that){ //鼠标移入函数
+        for( var j = 0 ; j<_menuli.length ;j++){  //还原之前的设置
+            _menuli[j].className='';
+            _contentul[j].style.display="none";
+        }
+        that.className="select";     //设置ClassName 改变样式
+        _contentul[that.id].style.display="block"; //相对应的内容显示 索引根据选项卡的ID
+    }
+    /*划过切换*/
+   function tab_mouseover(){
+       for( var i = 0 ; i<_menuli.length ;i++){ //遍历所有选项卡
+           _menuli[i].id=i;  //设置每个选项卡li的ID等于它自身的索引 。
+           _menuli[i].onmouseover=function(){
+               that =this;
+               start(that);
+           }
+       }
+       _contentul[0].style.display="block";
+   }
+   /*延时划过切换方法*/
+   function timeout_tab_mouseover() {
+       for (var i = 0; i < _menuli.length; i++) { //遍历所有选项卡
+           _menuli[i].id = i;  //设置每个选项卡li的ID等于它自身的索引 。
+           _menuli[i].onmouseover = function () {
+               that = this;
+               if (timer) {  //是否有正在执行的timeout //有责清除
+                   clearTimeout(timer);
+               }
+
+                   timer = setTimeout('start(that)',500); //设置延时0.5秒
+
+           }
+           _contentul[0].style.display = "block";
+       }
+
+   }
+    /*自动切换方法*/
+    function auto_tab_mouseover(){
+
+        for (var i = 0; i < _menuli.length; i++) { //遍历所有选项卡
+            _menuli[i].id = i;  //设置每个选项卡li的ID等于它自身的索引 。
+        }
+        index++;  //索引自加
+        if(index>=_menuli.length){ //索引超过长度变为0 重新切换
+            index=0;
+        }
+        that=_menuli[index];
+        start(that);
+       timer= setTimeout('auto_tab_mouseover()',2000);// 设置延时执行;
+    }
+    /*自动切换 鼠标划过停止 鼠标离开继续自动播放的方法 */
+    function _tab(){
+        auto_tab_mouseover();
+        for (var i = 0; i < _menuli.length; i++) { //遍历所有选项卡
+            _menuli[i].id = i;  //设置每个选项卡li的ID等于它自身的索引 。
+            _menuli[i].onmouseover = function () { // 鼠标滑过事件
+                clearTimeout(timer); //清除timeout定时器
+                start(this); //使用切换效果方法
+            }
+            _menuli[i].onmouseout = function () { //鼠标离开事件
+                index=this.id;  //设置自动切换的开始的索引值等于离开选项卡的ID
+                timer= setTimeout('auto_tab_mouseover()',2000);//开始计时器
+
+            }
+
+        }
+
+    }
+    /*调用函数*/
+   // tab_mouseover()
+  //  timeout_tab_mouseover();
+  //auto_tab_mouseover();
+    _tab();
+</script>
+</body>
+</html>

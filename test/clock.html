@@ -9,24 +9,24 @@
         window.onload = function(){
             showTime();
         }
-        function checkTime(i){  //补位处理
+        function checkTime(i){  //补位处理 小于10显示两位
             if(i<10){
                 i="0"+i;
             }
             return i;
         }
         function showTime(){
-            var now=new Date();
-            var year=now.getFullYear();
-            var month=now.getMonth()-1;
-            var day=now.getDate();
-            var h=now.getHours();
-            var m=now.getMinutes()  ;
-            var s= now.getSeconds()  ;
-            m=checkTime(m)
+            var now=new Date(); //定义日期对象 获取当前时间
+            var year=now.getFullYear(); //获取当前年份
+            var month=now.getMonth()+1; //获取当前月份 月份为0-开始到11 所以加1
+            var day=now.getDate(); //获取当前‘几号’
+            var h=now.getHours();//获取当前小时
+            var m=now.getMinutes()  ; //获取当前分钟
+            var s= now.getSeconds()  ; //获取当前秒
+            m=checkTime(m) //调用补位处理
             s=checkTime(s)
 
-            var weekday=new Array(7)
+            var weekday=new Array(7) //定义星期数组
             weekday[0]="星期日"
             weekday[1]="星期一"
             weekday[2]="星期二"
@@ -35,8 +35,8 @@
             weekday[5]="星期五"
             weekday[6]="星期六"
 
-            document.getElementById("show").innerHTML=""+year+"年"+month+"月"+day+"日 "+ weekday[now.getDay()] +h+":"+m+":"+s;
-            t=setTimeout('showTime()',500)
+            document.getElementById("show").innerHTML=""+year+"年"+month+"月"+day+"日 "+ weekday[now.getDay()] +h+":"+m+":"+s;//显示格式
+            t=setTimeout('showTime()',500) //设置500毫秒后延时执行 以刷新时间
         }
 
     </script>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证码倒计时</title>
+    <script type="text/javascript">
+        window.onload=function() {
+            var send = document.getElementById('send'),
+                    times = 60,
+                    timer = null;
+            send.onclick = function () {
+                // 计时开始
+                timer = setInterval(function () {
+                    if (times > 0) {
+                        times--;
+                        send.setAttribute('disabled', 'disabled');
+                        send.value = times;
+                    } else {
+                        send.removeAttribute('disabled', 'disabled');
+                        send.value = "发动验证码";
+                        clearInterval(timer);
+                            }
+                },1000);
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="button" id="send" value="发送验证码">
+</body>
+</html>
