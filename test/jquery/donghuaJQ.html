@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery动画特效</title>
+    <style>
+        div{
+            width:100px;
+            height: 100px;
+            border: 2px solid #000000;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+<script>
+    $(function(){
+        $("body").append("<div></div><button id='left'>向左</button><button id='right'>向右</button>");
+        $("#left").bind("click",function(){
+            $("div").animate({
+                left:"+=50px"
+            });
+        });
+        $("#right").bind("click",function(){
+            $("div").animate({
+                left:"-=50px"
+            });
+        });
+
+
+    });
+
+</script>
+</html>

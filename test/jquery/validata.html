@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>validate插件</title>
+    <!--引入jquery 和 插件-->
+    <script src="../../js/jquery/jquery-1.9.0.js"></script>
+    <script  src="../../js/jquery/jquery.validate-1.13.1.js"></script>
+    <style type="text/css">
+        div{
+            width: 500px;
+            margin: 0 auto;
+            border: 5px solid #ccc;
+            padding: 50px;
+        }
+        span{
+            display: block;
+            width: 150px;
+
+        }
+      input{
+          display: block;
+          margin-bottom: 10px ;
+      }
+        #sub{
+            position: relative;
+            left: 200px;
+        }
+        label{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div>
+<form action="#" id="myform">
+  <span>用户名：</span><input type="text" name="username">
+    <span>密码</span><input id="password" type="password" name="password1">
+    <span> 再输入一次密码</span><input type="password" name="password2">
+    <span>年龄：</span><input type="text" name="age">
+    <span>邮箱：</span><input type="text" name="mail">
+    <input id="sub" type="submit" value="点击提交">
+</form>
+</div>
+</body>
+<script>
+    $(function(){
+        $("#myform").validate({   //验证的表单的validate方法
+          //  debug:true, //开启调试模式 不提交数据
+         rules:{    //验证规则开
+             username:{   //验证的元素（用户名）的name
+                 required:true,  //是否必填
+                 minlength:6,      //最小长度
+                 maxlength:10,    //最大长度
+                 remote:{   //后台校验
+                     url:"../test.txt",  //后台地址
+                     type:"post" ,//默认get
+                     data:"我是数据"  //username 值默认发送，设置后添加其他数据
+                          }
+
+             },
+             password1:{
+                 required:true,
+                 rangelength:[6,12] //设置长度范围 6到12 相当于 minlength:6,maxlength:12。
+
+
+             },
+             password2:{
+                 required:true,
+                 equalTo:"#password" //验证是否和密码1相同（#password获取密码1的元素ID）
+             },
+             age:{
+
+                 min:18,   //设置最小值
+                 max:100 //设置最大值
+                 /*以上也可以写成range[18,100]*/
+             },
+             mail:{
+                 required:true,
+                 email:true
+                  /*邮箱格式验证  其他方法还有url,
+                                  date日期（js可识别的日期格式都可以），
+                                 dataISO（标准的日期格式yyyy-mm-dd或者 yyyy/mm/dd）,
+                                 number （验证所有是否为数字），
+                                 digits(验证非负整数)，
+                                 */
+             }
+         },
+        messages:{    //开始消息设置
+            username:{   //验证表单元素的name
+                required:"用户名必填",  //根据对应的规则写入提示信息
+                minlength:"用户名最少6位",
+                maxlength:"用户名最大10位",
+                remote:"服务器验证失败"
+            },
+            password1:{
+                required:"密码必填",
+                rangelength:"密码最少6位,密码最大12位"
+            },
+            password2:{
+                required:"密码确认必填",
+                equalTo:"两次输入的密码不一致"
+            },
+            age:{
+                min:"注册最小年龄为18岁",
+                max:"最大年龄不超过100岁"
+
+            },
+            mail:{
+                required:"邮箱为必填",
+                email:"请输入正确的Email格式."
+
+            }
+
+        }
+        })
+    })
+
+
+</script>
+</html>

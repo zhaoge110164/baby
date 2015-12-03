@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>json对象</title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+
+</body>
+<script>
+    var students=[
+        {"name":"刘德华", "id":"001" ,"score":33},
+        {"name":"刘华", "id":"002" ,"score":43},
+        {"name":"刘德", "id":"003" ,"score":53},
+        {"name":"德华", "id":"004" ,"score":83},
+        {"name":"三德子", "id":"005" ,"score":93},
+    ];
+    $.each(students,function(index,data){
+        $("body").append("<p>第"+(index+1)+"名学生&nbsp姓名："+data.name+"&nbsp学号："+data.id+"&nbsp分数："+data.score+"</p>");
+    })
+</script>
+</html>
