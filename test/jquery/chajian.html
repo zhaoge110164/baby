@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../../js/jquery/jquery-1.9.0.js"></script>
+    <style>
+        .myli{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div >
+    <ul id="ul1">
+        <li>中国</li>
+        <li>美国</li>
+        <li>英国</li>
+        <li>毛子</li>
+        <li>棒子</li>
+        <li>本子</li>
+    </ul>
+    <ul id="ul2">
+        <li>呵呵</li>
+        <li>嘿嘿</li>
+        <li>哈哈</li>
+        <li>吼吼</li>
+        <li>嘻嘻</li>
+        <li>嘎嘎</li>
+    </ul>
+</div>
+<script type="text/javascript">
+    (function($){
+        $.extend({
+            "setli":function(ul_node,over_className){ //传入UL节点和要改变的颜色的ClassName
+                         ul_node.find("li").hover(
+                                 function(){
+                                     $(this).addClass(over_className);
+                                 },
+                                 function(){
+                                     $(this).removeClass(over_className);
+                                 }
+                         );
+            }
+        })
+
+    })(jQuery);
+    $.setli($("#ul1"),"myli");
+
+</script>
+</body>
+</html>
