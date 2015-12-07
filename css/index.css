@@ -3,13 +3,16 @@ body {
 }
 
 nav {
-    background-color: #000000;
+    background-color: #323232;
     height: 60px;
     width: 100%;
     position: fixed;
     z-index: 100;
     top: 0px;
     left: 0px;
+    opacity: 0.5;
+    filter:alpha(opacity:50);
+
 }
 
 nav ul {
@@ -57,11 +60,14 @@ nav ul a:hover {
 
 #banner-wrap {
     min-height: 500px;
+    width: 100%;
     background-image: url("../img/banner.png");
     background-color: rgb(77, 90, 98);
     background-repeat: no-repeat;
     margin: 60px auto 0px;
     padding: 100px 0 0 500px;
+
+
 
 }
 

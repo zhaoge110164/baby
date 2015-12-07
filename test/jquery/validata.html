@@ -33,22 +33,31 @@
     </style>
 </head>
 <body>
+
 <div>
 <form action="#" id="myform">
-  <span>用户名：</span><input type="text" name="username">
-    <span>密码</span><input id="password" type="password" name="password1">
-    <span> 再输入一次密码</span><input type="password" name="password2">
-    <span>年龄：</span><input type="text" name="age">
-    <span>邮箱：</span><input type="text" name="mail">
+    <P class="errorp"></P>
+  <span>用户名：</span><input type="text" name="username" id="username" class="txt">
+    <span>密码</span><input id="password" type="password" name="password1" class="txt">
+    <span> 再输入一次密码</span><input type="password" name="password2" class="txt">
+    <span>年龄：</span><input type="text" name="age" id="age" class="txt">
+    <span>邮箱：</span><input type="text" name="mail" class="txt" id="mail">
+    <input type="button" id="check" name="check" value="检查整个表单" >
+    <input type="button" id="agerules" name="age" value="设置年龄校验规则为必填" >
+    <input type="button" id="clearerr"  name="clear" value="清除表单的错误信息">
+    <input type="button" id="errormessage" name="message" value="点击触发火星文错误信息">
     <input id="sub" type="submit" value="点击提交">
 </form>
+
 </div>
 </body>
 <script>
     $(function(){
-        $("#myform").validate({   //验证的表单的validate方法
-          //  debug:true, //开启调试模式 不提交数据
-         rules:{    //验证规则开
+        var tag=0;
+        /*validate会返回一个对象  自定义valiobj 来获取*/
+      var valiobj= $("#myform").validate({   //验证的表单的validate方法
+           debug:true, //开启调试模式 不提交数据
+         rules:{    //验证规则
              username:{   //验证的元素（用户名）的name
                  required:true,  //是否必填
                  minlength:6,      //最小长度
@@ -68,7 +77,14 @@
              },
              password2:{
                  required:true,
-                 equalTo:"#password" //验证是否和密码1相同（#password获取密码1的元素ID）
+                 equalTo:{
+                 /*设置当第一次输入的密码已经填写时 触发equalTO 规则，
+                             输入必须等译第一次输入密码（#passwoed）的值 */
+                     param:"#password",
+                     depends:function(){
+                         return $("#password").is(":filled");
+                     }
+                 }
              },
              age:{
 
@@ -103,6 +119,7 @@
                 equalTo:"两次输入的密码不一致"
             },
             age:{
+                required:"年龄必填",
                 min:"注册最小年龄为18岁",
                 max:"最大年龄不超过100岁"
 
@@ -113,8 +130,78 @@
 
             }
 
-        }
+         },
+     /*     groups:{
+              myerr:" password password2 age mail"
+          },*/
+         /* errorPlacement:function( error ,element){
+              error.appendTo($("#errorp"));
+          },*/
+
+          /*提交验证成功的表单后执行的函数（可以用ajax提交数据等操作）*/
+          submitHandler:function(){
+              alert("全部正确");
+          },
+          /*提交无效标单后执行的函数（可以用ajax提交数据等操作）*/
+          invalidHandler:function(){
+              alert("有错误");
+          },
+          /*设置某个元素不验证*/
+          ignore:"#mail"
         })
+        $("#check").click(function(){
+            /*.valid()方法验证整个表单或者表单中某个元素填写是否正确 返回 true 或者 false*/
+            alert($("#myform").valid()?"表单填写正确":"表单填写错误");
+        });
+        /*。rule() 方法 不加参数获取 【单个表单元素】的验证规则，加"add"，和“remove”则添加删除规则
+        添加删除多个 规则名用，隔开 ("add"{mail:true,max10。。。。。 }) ,("remove" "mail","max" ......)  */
+        $("#agerules").click(function () {
+            if(tag==0) {
+                $("#age").rules("add", "required");
+                $(this).val("恢复年龄校验规则");
+                tag = 1;
+            }
+            else{
+                $("#age").rules("remove", "required");
+                $(this).val("设置年龄校验规则为必填");
+                tag =0;
+            }
+
+        })
+        /*通过validate() 返回的对象自定义的vadateobj
+         valiobj.from() 方法验证整个表单，
+         valiobj.element("验证的元素“) 方法验证表单中的某个元素，
+         varliobj.resetForm(),方法清除错误的信息，
+         valiobj.showErrors("自定义的错误信息") 显示特定的错误信息，
+        valiobj.numberOfInvalids() 方法返回表单中无效的条目
+         静态方法：
+         $.validator.setDefaults（）设置默认配置，
+         $.validator.addClassRules（）通过classname 设置多个元素的规则
+        * */
+        $("#clearerr").click(function(){
+                    valiobj.form()?alert("没有错误"):valiobj.resetForm(),alert("有"+valiobj.numberOfInvalids()+"处错误");
+
+                }
+        );
+        $("#errormessage").click(function(){
+                    valiobj.showErrors({
+                      username:"我是火星文嘿嘿",
+                      password1:  "我是火星文嘿嘿",
+                        age:"我是火星文嘿嘿"
+                    })
+        });
+        $.validator.setDefaults({
+            debug:true
+        })
+        $.validator.addClassRules({
+            txt:{
+                required:true
+            }
+        });
+
+
+
+
     })
 
 
