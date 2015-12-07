@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>canvas</title>
+    <meta charset="UTF-8">
+    <script src="../js/jquery/jquery.js"></script>
+    <style>
+        .move{background: #006600;position:absolute;border:1px solid #000000;border-radius: 50%}
+        .move1{width:20px;height:20px;left:538px;top:467px;}
+        .move2{width:23px;height:23px;left:478px;top:410px;}
+        .move3{width:25px;height:25px;left:408px;top:477px;}
+
+        .move4{width:35px;height:35px;left:500px;top:570px;}
+        .move5{width:37px;height:37px;left:600px;top:465px;}
+        .move6{width:40px;height:40px;left:450px;top:320px;}
+        .move7{width:45px;height:45px;left:300px;top:465px;}
+
+        .move8{width:55px;height:55px;left:480px;top:660px;}
+        .move9{width:60px;height:60px;left:680px;top:445px;}
+        .move10{width:65px;height:65px;left:592px;top:232px;}
+        .move11{width:70px;height:70px;left:380px;top:145px;}
+        .move12{width:75px;height:75px;left:168px;top:233px;}
+
+        .move13{width:80px;height:80px;left:80px;top:445px;}
+        .move14{width:85px;height:85px;left:197px;top:728px;}
+        .move15{width:90px;height:90px;left:480px;top:845px;}
+        button{top:500px;position:relative;left:20px;}
+    </style>
+</head>
+<body>
+<script>
+    $(function(){
+        drawBack();
+        $("#btn_up").on('click',function(){
+            var str ='<div x="520" e="1.5707963267948966" y="485" b="2.356194490192345" r="400" class="move15 move" value="move15"></div>';
+            moveall('left');
+          setTimeout(function(){$("#canvas_box").append(str)},3000);
+        })
+
+        $("#btn_down").on('click',function(){
+            var str ='<div x="490" e="4.71238898038469" y="475" b="0" r="60" class="move move1" value="move1"></div>';
+            moveall('right');
+            $("#myCanvas").after(str);
+        })
+    })
+
+    function moveall(to){
+       var data={};  //第一步 收集所有在页面中的信息。放到一个数组中。
+        var obj = $(".move");
+        var l = obj.length;
+        obj.each(function(i,e){
+           var o = $(e);
+           var small=[];
+           var r = o.attr('r');
+           var x =o.attr('x');
+           var y = o.attr('y');
+           var b = o.attr('b');
+           var e = o.attr('e');
+           small['r'] = r;
+           small['x'] = x;
+           small['y'] = y;
+           small['b'] = b;
+           small['e'] = e;
+           data[i]=small;
+       })
+
+        if(to == 'right'){
+            //向右转 逆时针  角度 由大变小 --
+           obj.each(function(k,v){
+                if(k ==l-1){
+                    $(v).remove();
+                }else{
+                    moveto(parseInt(data[k].r),data[k].b,data[k].e,this,parseInt(data[k].x),parseInt(data[k].y),parseInt(k)+1,'r');
+                    var ind= parseInt(k)+1;   //在每一个div中记录下一次移动的数据。
+                    $(v).attr('r',data[ind].r);
+                    $(v).attr('b',data[ind].b);
+                    $(v).attr('e',data[ind].e);
+                    $(v).attr('x',data[ind].x);
+                    $(v).attr('y',data[ind].y);
+
+                   var val= $(v).attr('value');   //换类名字
+                   var newv = val.substr(4);
+                   var nextv = parseInt(newv) +1;
+
+                   $(v).addClass('move'+nextv).removeClass('move'+newv).attr('value','move'+nextv);
+                    val = null;
+                    newv = null;
+                    nextv = null;
+                }
+            })
+        }else if(to == 'left'){
+            //向左转 顺时针  角度 由小变大 ++
+            obj.each(function(k,v){
+                if(k ==0){
+                  // $(v).remove();
+                }else{
+                    moveto(parseInt(data[k-1].r),data[k-1].b,data[k-1].e,this,parseInt(data[k-1].x),parseInt(data[k-1].y),parseInt(k),'l');
+                    var ind= parseInt(k);   //在每一个div中记录下一次移动的数据。
+                    $(v).attr('r',data[ind].r);
+                    $(v).attr('b',data[ind].b);
+                    $(v).attr('e',data[ind].e);
+                    $(v).attr('x',data[ind].x);
+                    $(v).attr('y',data[ind].y);
+
+                    var val= $(v).attr('value');   //换类名字
+                    var newv = val.substr(4);
+                    var nextv = parseInt(newv) -1;
+                   // $(v).addClass('move'+nextv).removeClass(val).attr('value','move'+nextv);
+                    val = null;
+                    newv = null;
+                    nextv = null;
+                }
+            })
+        }
+        data= null;
+    }
+
+    function moveto(r,b,e,o,x,y,j,to){
+
+        var left = new Array(10,11,13,17,19,20,23,27,30,33,35,38,40,43,45);
+        var pi = Math.PI/360;
+        pi = pi.toFixed(5);
+        //var b =  Math.round(b*100000,6)/100000;
+       // var e =  Math.round(e*100000,6)/100000;
+       // b  = b.toFixed(5);
+        //e  = e.toFixed(5);
+
+        if(to =='r'){  //逆时针转动
+            if(b == 0){   //逆时针 从0度开始减  0度就是360度。
+                b = 2*Math.PI;
+            }
+            for(var i= b,w=0;i>=e;w++){
+                i=i-w*pi/20;
+                if(w<=20){
+                    continue;
+                }
+                var o_x =  x + parseInt(r*Math.cos(i));
+                var o_y =  y + parseInt(r*Math.sin(i));
+                $(o).animate({'top':parseInt(o_y)-left[j],'left':parseInt(o_x)-left[j]},10);
+            }
+        }
+
+        if(to =='l'){//顺时针转动
+            if(b == 0){   //顺时针 从360度开始加  360度就是0度。
+                b = 2*Math.PI;
+            }
+            for(i= e,v=0;i<=b;v++){   //i+ = pi
+                i = parseFloat(e)+v*pi*2;
+                if(v<=2){
+                    continue;
+                }
+                var o_x =  x + parseInt(r*Math.cos(i));
+                var o_y =  y + parseInt(r*Math.sin(i));
+               $(o).animate({'top':parseInt(o_y)-left[j],'left':parseInt(o_x)-left[j]},10);
+            }
+        }
+    }
+
+
+    function drawArc(ctx,line,arr){
+        ctx.beginPath();
+        ctx.strokeStyle = '#ccc';
+        ctx.lineWidth = line;
+        ctx.arc(arr['x'],arr['y'],arr['r'],arr['b'],arr['e'],true);
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+
+
+    function drawBack(){
+        var c=document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        var angle = new Array();
+        var newangle = new Array();
+        angle[0] = new Array();  angle[0]['b'] = 0; angle[0]['e'] = 3/2*Math.PI;
+        angle[1] = new Array();  angle[1]['b'] = 3/2*Math.PI; angle[1]['e'] =Math.PI ;
+        angle[2] = new Array();  angle[2]['b'] = Math.PI; angle[2]['e'] = 1/2*Math.PI;
+        angle[3] = new Array();  angle[3]['b'] = 1/2*Math.PI; angle[3]['e'] = 0;
+
+        newangle[0] = new Array();  newangle[0]['b']=0; newangle[0]['e']=7/4*Math.PI;
+        newangle[1] = new Array();  newangle[1]['b']=7/4*Math.PI; newangle[1]['e']=6/4*Math.PI;
+        newangle[2] = new Array();  newangle[2]['b']=6/4*Math.PI; newangle[2]['e']=5/4*Math.PI;
+        newangle[3] = new Array();  newangle[3]['b']=5/4*Math.PI; newangle[3]['e']=Math.PI;
+        newangle[4] = new Array();  newangle[4]['b']=Math.PI; newangle[4]['e']=3/4*Math.PI;
+        newangle[5] = new Array();  newangle[5]['b']=3/4*Math.PI; newangle[5]['e']=2/4*Math.PI;
+
+        var arr= [
+            //750 750
+            {'x':500,'y':'500','r':'0'},
+            {'x':500,'y':'500','r':'25'},
+            {'x':500,'y':'500','r':'25'},
+            {'x':500,'y':'475','r':'50'},
+            {'x':490,'y':'475','r':'60'},
+            {'x':490,'y':'485','r':'70'},
+            {'x':520,'y':'485','r':'100'}, // 从这里开始画。
+            {'x':520,'y':'485','r':'100'},
+            {'x':470,'y':'485','r':'150'},
+            {'x':470,'y':'485','r':'150'},
+            {'x':520,'y':'485','r':'200'},
+            {'x':520,'y':'485','r':'200'},
+            {'x':420,'y':'485','r':'300'},
+            {'x':420,'y':'485','r':'300'},
+            {'x':420,'y':'485','r':'300'},
+            {'x':420,'y':'485','r':'300'},
+            {'x':520,'y':'485','r':'400'},
+            {'x':520,'y':'485','r':'400'}
+        ]
+
+       // var locate= new Array();
+        var str = '';
+        for(i in arr){
+            var num = i%4;
+            var data = new Array();
+            data['x'] = arr[i].x;
+            data['y'] = arr[i].y;
+            data['r'] = arr[i].r;
+            data['b'] = angle[num]['b'];
+            data['e'] = angle[num]['e'];
+
+            if(i>=12){
+                var num = i%12;
+                data['b'] = newangle[num]['b'];
+                data['e'] = newangle[num]['e'];
+            }
+
+            drawArc(ctx,parseInt(i)/2,data);
+
+            if( i >=4 && i<7){
+                str+=' <div value="move'+(i-3)+'" class="move'+(i-3)+' move" r="'+ arr[i].r+'" b="'+data['b']+'" y="'+arr[i].y+'" e="'+ data['e']+'" x="'+arr[i].x+'"></div>';
+            }else if(i>=7 && i<11){
+                str+=' <div value="move'+(i-3)+'" class="move'+(i-3)+' move" r="'+ arr[i].r+'" b="'+data['b']+'" y="'+arr[i].y+'" e="'+ data['e']+'" x="'+arr[i].x+'"  ></div>';
+            }else if(i>=11){
+                str+=' <div value="move'+(i-3)+'" class="move'+(i-3)+' move" r="'+ arr[i].r+'" b="'+data['b']+'" y="'+arr[i].y+'" e="'+ data['e']+'" x="'+arr[i].x+'" ></div>';
+            }
+
+            if(i == arr.length-1){   //增加最后一个
+                str+=' <div value="move15" class="move15 move" r="'+ arr[i].r+'" b="'+data['b']+'" y="'+arr[i].y+'" e="'+ data['e']+'" x="'+arr[i].x+'" ></div>';
+            }
+        }
+
+        $("#canvas_box").append(str);
+    }
+
+
+</script>
+<button id="btn_up">顺时针</button>
+<button id="btn_down">逆时针</button>
+<div style="height:1000px;width:1000px;margin:-150px auto;position:relative;border:1px solid red"  id="canvas_box">
+    <canvas id="myCanvas" width="1000" height="1000" style="margin:10px auto;">
+    </canvas>
+</div>
+
+</body>
+</html>

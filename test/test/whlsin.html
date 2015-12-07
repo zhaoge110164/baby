@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> 人脉测试</title>
+    <meta charset="UTF-8">
+
+    <script src="../js/jquery/jquery.js"></script>
+
+     <style>
+            .main{width:600px;height:600px;position:relative;top:100px;left:100px;background: #cccc77;padding:0px;}
+            .main_s{position:absolute;border:1px solid #000a28;border-radius: 50%;padding:0px;float:left;}
+            .main_s span{text-align:center;margin:50%;vertical-align:middle;padding:0px;width:50px;height:50px;}
+            .s1{width:200px;height:200px;margin:200px;background:#006600;z-index:200;}
+            .s2{width:400px;height:400px;margin:100px;background:#004444;z-index:100;}
+            .s3{width:600px;height:600px;margin:0px;background: #116644;z-index: 50}
+            .s4{width:600px;height:600px;margin:0px;background: #ccc;z-index: 30;display:none;}
+            .s5{width:600px;height:600px;margin:0px;background: #146666;z-index: 10;display:none}
+            .son{width:50px;height:50px;background: #ff2222;position:absolute;border:1px solid #146666;border-radius: 50%}
+     </style>
+
+    <script>
+        $(function(){
+                $("#week").click(function(){   //周 时间段   s1 收缩  s4 出现。
+                    $(".s2,.s3,.s4").show();
+                    $(".s1").animate({'width':'0px','height':'0px','margin':'300px'},1000,function(){
+                        $(".s1").hide();
+                    });
+                    $(".s2").animate({'width':'200px','height':'200px','margin':'200px'},1050);
+                    $(".s3").animate({'width':'400px','height':'400px','margin':'100px'},1100);
+                    $(".s4").animate({'width':'600px','height':'600px','margin':'0px'},1000,function(){
+                        $(".s4").fadeIn(1000);
+                    })
+                    $(".s5").fadeOut(1000,function(){$('.s5').hide()});
+                    $(".son").fadeOut(function(){$(".son").remove()});
+
+                })
+
+                $("#day").click(function(){  //日 时间段 s1  s2  s3 出现 其他消失
+                    $(".s1,.s2,.s3").show();
+                    $(".s1").animate({'width':'200px','height':'200px','margin':'200px'},1000);
+                    $(".s2").animate({'width':'400px','height':'400px','margin':'100px'},1050);
+                    $(".s3").animate({'width':'600px','height':'600px','margin':'0px'},1100);
+                    $(".s4").fadeOut(2000,function(){$('.s4').hide()});
+                    $(".s5").fadeOut(2000,function(){$('.s5').hide()});
+                })
+
+            $("#month").click(function(){   //月 时间段 s3收缩到最小 s4 s5 出现 1 2 hide
+                $(".s4,.s5").show();
+                $(".s1").animate({'width':'0px','height':'0px','margin':'300px'},1000,function(){ $(".s1").hide();});
+                $(".s2").animate({'width':'0px','height':'0px','margin':'300px'},1000,function(){ $(".s2").hide();});
+                $(".s3").animate({'width':'200px','height':'200px','margin':'200px'},1100)
+
+                $(".s4").fadeIn(300,function(){
+                    $(".s4").animate({'width':'400px','height':'400px','margin':'100px'},1000);
+                });
+                $(".s5").fadeIn(1000);
+            })
+        })
+    </script>
+
+</head>
+
+<body>
+        <div class="nav">
+               <button id="day">日</button>
+               <button id="week">周</button>
+               <button id="month">月</button>
+        </div>
+       <div class="main">
+            <div class="main_s s1">
+                <span>日</span>
+
+                <div class="son" style="margin-top:10%;margin-left:-10%">王小胖A</div>
+                <div class="son" style="margin-top:67%;margin-left:10%">李小胖A</div>
+                <div class="son" style="margin-top:10%;margin-left:80%">张小胖A</div>
+                <div class="son" style="margin-top:56%;margin-left:79%">路胖墩A</div>
+            </div>
+            <div class="main_s s2">
+                 <span>周</span>
+
+                <div class="son" style="margin-top:10%;margin-left:2%">王小胖W</div>
+                <div class="son" style="margin-top:74%;margin-left:10%">李小胖W</div>
+                <div class="son" style="margin-top:4%;margin-left:80%">张小胖W</div>
+                <div class="son" style="margin-top:56%;margin-left:88%">路胖墩W</div>
+            </div>
+            <div class="main_s s3">
+                <span>月</span>
+
+                <div class="son">王小胖M</div>
+                <div class="son">李小胖M</div>
+                <div class="son">张小胖M</div>
+                <div class="son">路胖墩M</div>
+            </div>
+            <div class="main_s s4">
+                <div class="son">王小胖F</div>
+                <div class="son">李小胖F</div>
+                <div class="son">张小胖F</div>
+                <div class="son">路胖墩F</div>
+            </div>
+            <div class="main_s s5">
+                <div class="son">王小胖V</div>
+                <div class="son">李小胖V</div>
+                <div class="son">张小胖V</div>
+                <div class="son">路胖墩V</div>
+            </div>
+       </div>
+</body>
+
+</html>
