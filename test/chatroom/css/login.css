@@ -1,0 +1,33 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+#warp{
+    width: 400px;
+    height: 400px;
+    border: 10px solid #cccc77;
+    margin: 0 auto;
+
+}
+#warp div{
+    width: 70%;
+    margin: 50px auto;
+}
+#warp div >span{
+    display: inline-block;
+    text-align: right;
+    width: 80px;
+}
+#warp div button{
+    display: block;
+    float: left;
+    margin:0 0 0 70px;
+}
+#loginMessage{
+    display:block;
+    clear: both;
+    text-align: center;
+    padding-top: 50px;
+    color: red;
+
+}

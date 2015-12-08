@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="css/chat.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
+    <title>留言板</title>
+</head>
+<body>
+<div id="main">
+   <div id="content">
+   </div>
+    <div id="list">
+        【在线用户】
+    </div>
+    <div id="insert">
+        <textarea rows="3" cols="72">
+        </textarea>
+        请输入姓名：<input type="text" id="name">
+        <button id="send">发送</button>
+        <span id="status">请开始留言</span>
+
+    </div>
+</div>
+</body>
+<script>
+    (function($){
+        $.extend({
+            "send": function(message,name){
+                var time=new Date();
+                var hh=time.getHours();
+                var mm=checktime(time.getMinutes());
+                var ss=checktime(time.getSeconds());
+                function checktime(a){
+                    if(a<10){
+                        return "0"+a;
+                    }else
+                        return a
+                }
+                var sendtime=hh+":"+mm+":"+ss;
+                var content=name+"在"+sendtime+"说"+message;
+                return content;
+            }
+        })
+    })(jQuery);
+    $(function(){
+        $(document).ajaxStart(function(){
+            $("#status").html("正在提交数据")
+        });
+        $(document).ajaxStop(function(){
+            $("#status").html("提交成功！")
+        });
+
+        $("#send").click(function(){
+            var message=$("textarea").val();
+            var name=$("#name").val();
+            var i=0;
+            if(message!=''&& name!=''){
+                $.ajax({
+                    url:"",
+                    data:{
+                        "message":message,
+                        "name":name
+                    },
+                    success:function(){
+                        $("#content").append("<span>"+ $.send(message,name)+"</span>");
+                          var list_span=$("#list span");
+                          for(i=0;i<list_span.length;i++){
+                            if(list_span.eq(i).html()==name){
+                                list_span.eq(i).remove();
+                            }
+                        };
+                        $("#list").append("<span>"+name+"</span>");
+                        $("textarea").val('');
+                        message='';
+                    }
+                })
+            }else{
+                $("#status").html("留言内容和姓名不能为空！")
+            }
+            return false;
+        });
+
+    })
+</script>
+</html>
