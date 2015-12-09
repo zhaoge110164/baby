@@ -42,6 +42,7 @@
     <span> 再输入一次密码</span><input type="password" name="password2" class="txt">
     <span>年龄：</span><input type="text" name="age" id="age" class="txt">
     <span>邮箱：</span><input type="text" name="mail" class="txt" id="mail">
+    <span>邮编：</span><input type="text" name="youbian"  id="youbian">
     <input type="button" id="check" name="check" value="检查整个表单" >
     <input type="button" id="agerules" name="age" value="设置年龄校验规则为必填" >
     <input type="button" id="clearerr"  name="clear" value="清除表单的错误信息">
@@ -101,6 +102,9 @@
                                  number （验证所有是否为数字），
                                  digits(验证非负整数)，
                                  */
+             },
+             youbian:{
+                 youbian:true
              }
          },
         messages:{    //开始消息设置
@@ -198,8 +202,12 @@
                 required:true
             }
         });
-
-
+        /*自定义验证方法，格式$.validator.addMethod("名字","方法","提示消息")*/
+        $.validator.addMethod("youbian",function(value,element,params){
+            var youbian=/^[0-9]{6}$/;//定义正则
+            /*optional(element)验证是否填写 没有值返回true(不验证)  .test()方法验证是否符合正则*/
+            return this.optional(element)||(youbian.test(value));
+        },"请填写正确的邮编");
 
 
     })
